@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ale mium</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(22, 28, 45, 0.7);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.35);
+            --accent: #10b981;
+            --text-main: #f3f4f6;
+            --text-sub: #9ca3af;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 10% 10%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                radial-gradient(at 90% 90%, rgba(16, 185, 129, 0.1) 0px, transparent 50%);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .badge-top {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: #818cf8;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #fff, #9ca3af);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: var(--text-sub);
+            font-size: 1rem;
+        }
+
+        /* Glassmorphism Card Wrapper */
+        .form-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 35px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .section-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin: 25px 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #e5e7eb;
+        }
+
+        .section-title i {
+            color: var(--primary);
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        /* Form Controls */
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.88rem;
+            color: var(--text-sub);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 14px 16px;
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-glow);
+        }
+
+        /* Product Cards (Radio Buttons) */
+        .grid-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 15px;
+        }
+
+        .option-card {
+            position: relative;
+        }
+
+        .option-card input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .option-content {
+            background: rgba(15, 23, 42, 0.5);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 18px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .option-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            flex-shrink: 0;
+        }
+
+        .option-info {
+            flex-grow: 1;
+        }
+
+        .option-title {
+            font-weight: 700;
+            font-size: 1rem;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .option-desc {
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            display: block;
+        }
+
+        .option-price {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* Radio Checked Style */
+        .option-card input:checked + .option-content {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.08);
+            box-shadow: 0 0 20px var(--primary-glow);
+            transform: translateY(-2px);
+        }
+
+        /* Checkbox Add-ons */
+        .addons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .addon-card input:checked + .option-content {
+            border-color: var(--accent);
+            background: rgba(16, 185, 129, 0.08);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+        }
+
+        /* Sticky Order Summary Footer */
+        .summary-bar {
+            margin-top: 30px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .total-box span {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            display: block;
+        }
+
+        .total-box h3 {
+            font-size: 1.6rem;
+            color: #fff;
+            font-weight: 800;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 20px var(--primary-glow);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px var(--primary-glow);
+        }
+
+        /* Dynamic Icons Theme */
+        .icon-netflix { color: #e50914; }
+        .icon-canva { color: #00c4cc; }
+        .icon-capcut { color: #ffffff; }
+        .icon-spotify { color: #1ed760; }
+        .icon-disney { color: #113ccf; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <span class="badge-top"><i class="fa-solid fa-bolt"></i> ORDER CEPAT GARANSI TEPAT</span>
+        <h1>Ale Prems</h1>
+        <p>Proses Cepat 1-5 Menit • Garansi Penuh • Akses Resmi & Legal</p>
+    </div>
+
+    <form action="proses.php" method="post" id="orderForm">
+        <div class="form-card">
+            
+            <!-- 1. Data Pelanggan -->
+            <div class="section-title">
+                <i class="fa-solid fa-user-gear"></i> 1. Informasi Pemesan
+            </div>
+            <div class="input-grid">
+                <div class="form-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" name="nama" class="form-control" placeholder="Contoh: Budi Santoso" required>
+                </div>
+                <div class="form-group">
+                    <label>Nomor WhatsApp / HP</label>
+                    <input type="text" name="whatsapp" class="form-control" placeholder="Contoh: 081234567890" required>
+                </div>
+            </div>
+
+            <!-- 2. Pilih Aplikasi (Radio Button) -->
+            <div class="section-title">
+                <i class="fa-solid fa-layer-group"></i> 2. Pilih Aplikasi Utama 
+            </div>
+            <div class="grid-options">
+                
+                <label class="option-card">
+                    <input type="radio" name="package" value="Netflix 1 Bulan Ultra HD" data-price="45000" onclick="calculateTotal()" required>
+                    <div class="option-content">
+                        <div class="option-icon icon-netflix"><i class="fa-solid fa-tv"></i></div>
+                        <div class="option-info">
+                            <span class="option-title">Netflix Premium</span>
+                            <span class="option-desc">1 Bulan • 4K UHD</span>
+                            <span class="option-price">Rp 45.000</span>
+                        </div>
+                    </div>
+                </label>
+
+                <label class="option-card">
+                    <input type="radio" name="package" value="Canva Pro Lifetime / Invite" data-price="20000" onclick="calculateTotal()">
+                    <div class="option-content">
+                        <div class="option-icon icon-canva"><i class="fa-solid fa-palette"></i></div>
+                        <div class="option-info">
+                            <span class="option-title">Canva Pro</span>
+                            <span class="option-desc">1 Tahun • Design Team</span>
+                            <span class="option-price">Rp 20.000</span>
+                        </div>
+                    </div>
+                </label>
+
+                <label class="option-card">
+                    <input type="radio" name="package" value="CapCut Pro Full Cloud" data-price="25000" onclick="calculateTotal()">
+                    <div class="option-content">
+                        <div class="option-icon icon-capcut"><i class="fa-solid fa-video"></i></div>
+                        <div class="option-info">
+                            <span class="option-title">CapCut Pro</span>
+                            <span class="option-desc">1 Bulan • All PC/Mobile</span>
+                            <span class="option-price">Rp 25.000</span>
+                        </div>
+                    </div>
+                </label>
+
+                <label class="option-card">
+                    <input type="radio" name="package" value="Spotify Premium Plan" data-price="30000" onclick="calculateTotal()">
+                    <div class="option-content">
+                        <div class="option-icon icon-spotify"><i class="fa-brands fa-spotify"></i></div>
+                        <div class="option-info">
+                            <span class="option-title">Spotify Premium</span>
+                            <span class="option-desc">1 Bulan • No Ads</span>
+                            <span class="option-price">Rp 30.000</span>
+                        </div>
+                    </div>
+                </label>
+
+            </div>
+
+            <!-- 3. Add-ons (Checkbox Array) -->
+            <div class="section-title">
+                <i class="fa-solid fa-shield-halved"></i> 3. Fitur / Add-ons Tambahan (Checkbox)
+            </div>
+            <div class="addons-grid">
+                
+                <label class="option-card addon-card">
+                    <input type="checkbox" name="addons[]" value="Garansi Anti-Lock (Rp 5.000)" data-price="5000" onclick="calculateTotal()">
+                    <div class="option-content">
+                        <div class="option-info">
+                            <span class="option-title">Garansi Anti-Lock</span>
+                            <span class="option-desc">Replace 1x jika error</span>
+                            <span class="option-price">+ Rp 5.000</span>
+                        </div>
+                    </div>
+                </label>
+
+                <label class="option-card addon-card">
+                    <input type="checkbox" name="addons[]" value="Proses Prioritas 1 Menit (Rp 3.000)" data-price="3000" onclick="calculateTotal()">
+                    <div class="option-content">
+                        <div class="option-info">
+                            <span class="option-title">Proses Prioritas</span>
+                            <span class="option-desc">Diproses urutan pertama</span>
+                            <span class="option-price">+ Rp 3.000</span>
+                        </div>
+                    </div>
+                </label>
+
+                <label class="option-card addon-card">
+                    <input type="checkbox" name="addons[]" value="Private Lock PIN (Rp 10.000)" data-price="10000" onclick="calculateTotal()">
+                    <div class="option-content">
+                        <div class="option-info">
+                            <span class="option-title">Private PIN</span>
+                            <span class="option-desc">Profile aman ber-PIN</span>
+                            <span class="option-price">+ Rp 10.000</span>
+                        </div>
+                    </div>
+                </label>
+
+            </div>
+
+            <!-- Summary & Submit -->
+            <div class="summary-bar">
+                <div class="total-box">
+                    <span>Estimasi Total Biaya:</span>
+                    <h3 id="displayTotal">Rp 0</h3>
+                    <input type="hidden" name="total_harga" id="totalHargaInput" value="0">
+                </div>
+                <button type="submit" class="btn-submit">
+                    <i class="fa-solid fa-paper-plane"></i> Beli Sekarang
+                </button>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<script>
+    // Realtime Total Calculator via JS
+    function calculateTotal() {
+        let total = 0;
+
+        // Ambil Radio Button terpilih
+        const selectedRadio = document.querySelector('input[name="package"]:checked');
+        if (selectedRadio) {
+            total += parseInt(selectedRadio.getAttribute('data-price')) || 0;
+        }
+
+        // Ambil Checkbox terpilih
+        const selectedCheckboxes = document.querySelectorAll('input[name="addons[]"]:checked');
+        selectedCheckboxes.forEach(cb => {
+            total += parseInt(cb.getAttribute('data-price')) || 0;
+        });
+
+        // Format angka ke Rupiah
+        document.getElementById('displayTotal').innerText = 'Rp ' + total.toLocaleString('id-ID');
+        document.getElementById('totalHargaInput').value = total;
+    }
+</script>
+
+</body>
+</html>

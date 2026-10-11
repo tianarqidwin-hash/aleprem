@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: ale-prems-order
+    runtime: php
+    plan: free
+    buildCommand: "composer install --no-dev --optimize-autoloader"
+    startCommand: "php -S 0.0.0.0:$PORT"
+    envVars:
+      - key: PHP_VERSION
+        value: "8.2"
+    healthCheckPath: /
+    autoDeploy: true
