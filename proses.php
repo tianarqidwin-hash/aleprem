@@ -1,5 +1,5 @@
 <?php
-// Aktifkan error handling sederhana agar tidak terjadi layar putih polos
+
 ini_set('display_errors', 0);
 error_reporting(E_ALL);
 
@@ -9,14 +9,12 @@ $whatsapp      = htmlspecialchars($_POST["whatsapp"] ?? "-");
 $package       = htmlspecialchars($_POST["package"] ?? "Produk Premium");
 $addons        = $_POST["addons"] ?? [];
 $totalHarga    = (int)($_POST["total_harga"] ?? 0);
-$paymentMethod = $_POST["payment_method"] ?? "qris_lokal"; // Menerima nilai dari tombol yang diklik
+$paymentMethod = $_POST["payment_method"] ?? "qris_lokal"; 
 
 // Generate ID Invoice Unik
 $invoiceID  = "STRM-" . strtoupper(substr(md5(time()), 0, 6));
 
-// =======================================================
 // KREDENSIAL & LOGIKA PAKASIR / QRIS LOKAL
-// =======================================================
 $slug          = 'ale-auto-order-24-hours';
 $apiKey        = '4FeR07YtTtTsMmnVuULM8OvAjtE5HrGj';
 $qrisImage     = "";
@@ -71,7 +69,7 @@ if ($paymentMethod === 'gateway') {
 }
 
 // Format Pesan Telegram Admin
-$telegramAdmin = "UsernameTelegramKamu"; // Ganti dengan username Telegram tanpa @
+$telegramAdmin = "UsernameTelegramKamu"; 
 $pesanTG  = "🛒 *PEMESANAN BARU STREAMVAULT*\n";
 $pesanTG .= "----------------------------------\n";
 $pesanTG .= "🆔 Invoice: #$invoiceID\n";
@@ -83,7 +81,7 @@ $pesanTG .= "💰 Total Tagihan: Rp " . number_format($totalHarga, 0, ',', '.') 
 $pesanTG .= "----------------------------------\n";
 $pesanTG .= "Halo Admin, saya telah melakukan pemesanan dan ingin konfirmasi.";
 
-$urlTelegram = "https://t.me/" . $telegramAdmin . "?text=" . urlencode($pesanTG);
+$urlTelegram = "https://t.me/bertawbat" . $telegramAdmin . "?text=" . urlencode($pesanTG);
 ?>
 
 <!DOCTYPE html>
@@ -104,7 +102,7 @@ $urlTelegram = "https://t.me/" . $telegramAdmin . "?text=" . urlencode($pesanTG)
         <div class="invoice-header">
             <span class="invoice-badge">
                 <i class="fa-solid fa-credit-card"></i> 
-                <?php echo ($paymentMethod === 'gateway' && !$isMaintenance) ? 'Pakasir Automated QRIS' : 'QRIS Manual (Lokal)'; ?>
+                <?php echo ($paymentMethod === 'gateway' && !$isMaintenance) ? 'Automated QRIS' : 'QRIS Manual (Lokal)'; ?>
             </span>
             <h2 style="font-size: 1.5rem; margin-top: 5px;">Rincian Pembayaran</h2>
             <div class="invoice-id">#<?php echo $invoiceID; ?></div>

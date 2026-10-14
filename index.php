@@ -257,11 +257,11 @@ $selectedProduct = $products[$productId];
                             <!-- Opsi Tombol Pembayaran Langsung -->
                             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px;">
                                 <button type="submit" name="payment_method" value="qris_lokal" class="btn-submit" style="background: rgba(99, 102, 241, 0.15); border: 1px solid var(--primary); color: #fff; text-align: center; padding: 14px;">
-                                    <i class="fa-solid fa-qrcode"></i> QRIS Manual (Lokal)
+                                    <i class="fa-solid fa-qrcode"></i> QRIS Manual
                                 </button>
                                 
                                 <button type="submit" name="payment_method" value="gateway" class="btn-submit" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff; text-align: center; padding: 14px;">
-                                    <i class="fa-solid fa-bolt"></i> Pakasir Gateway (Otomatis)
+                                    <i class="fa-solid fa-bolt"></i> QRIS Otomatis
                                 </button>
                             </div>
                         </div>
@@ -275,8 +275,10 @@ $selectedProduct = $products[$productId];
             <section>
                 <h2 class="section-title"><i class="fa-solid fa-headset"></i> Hubungi Kami</h2>
                 <div class="info-card" style="text-align:left;">
-                    <p style="margin-bottom:12px;"><strong>Email Support:</strong> support@streamvault.id</p>
-                    <p style="margin-bottom:12px;"><strong>Telegram Admin:</strong> @StreamVaultAdmin</p>
+                    <p style="margin-bottom:12px;"><strong>Email Support:</strong> Aleprem@gmail.com</p>
+                    <p style="margin-bottom:12px;"><strong>Telegram Admin:</strong> @bertawbat</p>
+                    <p style="margin-bottom:12px;"><strong>WhatsApp:</strong> +62 857-3347-2707</p>
+
                     <p><strong>Jam Operasional:</strong> 08:00 - 22:00 WIB</p>
                 </div>
             </section>
