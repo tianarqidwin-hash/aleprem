@@ -69,8 +69,7 @@ if ($paymentMethod === 'gateway') {
 }
 
 // Format Pesan Telegram Admin
-$telegramAdmin = "UsernameTelegramKamu"; 
-$pesanTG  = "🛒 *PEMESANAN BARU STREAMVAULT*\n";
+$pesanTG  = "🛒 *PEMESANAN BARU ALE MIUM*\n";
 $pesanTG .= "----------------------------------\n";
 $pesanTG .= "🆔 Invoice: #$invoiceID\n";
 $pesanTG .= "👤 Nama: $nama\n";
