@@ -1,446 +1,391 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ale mium</title>
-    <!-- Google Fonts & FontAwesome Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        :root {
-            --bg-color: #0b0f19;
-            --card-bg: rgba(22, 28, 45, 0.7);
-            --border-color: rgba(255, 255, 255, 0.08);
-            --primary: #6366f1;
-            --primary-glow: rgba(99, 102, 241, 0.35);
-            --accent: #10b981;
-            --text-main: #f3f4f6;
-            --text-sub: #9ca3af;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            background-image: 
-                radial-gradient(at 10% 10%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
-                radial-gradient(at 90% 90%, rgba(16, 185, 129, 0.1) 0px, transparent 50%);
-            color: var(--text-main);
-            min-height: 100vh;
-            padding: 40px 20px;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        /* Header */
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .badge-top {
-            display: inline-block;
-            background: rgba(99, 102, 241, 0.15);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            color: #818cf8;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(to right, #fff, #9ca3af);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            color: var(--text-sub);
-            font-size: 1rem;
-        }
-
-        /* Glassmorphism Card Wrapper */
-        .form-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 35px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        .section-title {
-            font-size: 1.15rem;
-            font-weight: 700;
-            margin: 25px 0 15px 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #e5e7eb;
-        }
-
-        .section-title i {
-            color: var(--primary);
-        }
-
-        .section-title:first-of-type {
-            margin-top: 0;
-        }
-
-        /* Form Controls */
-        .input-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.88rem;
-            color: var(--text-sub);
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .form-control {
-            width: 100%;
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 14px 16px;
-            color: #fff;
-            font-size: 0.95rem;
-            outline: none;
-            transition: all 0.3s;
-        }
-
-        .form-control:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px var(--primary-glow);
-        }
-
-        /* Product Cards (Radio Buttons) */
-        .grid-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 15px;
-        }
-
-        .option-card {
-            position: relative;
-        }
-
-        .option-card input {
-            position: absolute;
-            opacity: 0;
-            cursor: pointer;
-        }
-
-        .option-content {
-            background: rgba(15, 23, 42, 0.5);
-            border: 2px solid var(--border-color);
-            border-radius: 16px;
-            padding: 18px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            cursor: pointer;
-            transition: all 0.25s ease;
-        }
-
-        .option-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            flex-shrink: 0;
-        }
-
-        .option-info {
-            flex-grow: 1;
-        }
-
-        .option-title {
-            font-weight: 700;
-            font-size: 1rem;
-            display: block;
-            margin-bottom: 2px;
-        }
-
-        .option-desc {
-            font-size: 0.8rem;
-            color: var(--text-sub);
-            display: block;
-        }
-
-        .option-price {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--accent);
-            margin-top: 4px;
-            display: block;
-        }
-
-        /* Radio Checked Style */
-        .option-card input:checked + .option-content {
-            border-color: var(--primary);
-            background: rgba(99, 102, 241, 0.08);
-            box-shadow: 0 0 20px var(--primary-glow);
-            transform: translateY(-2px);
-        }
-
-        /* Checkbox Add-ons */
-        .addons-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
-        }
-
-        .addon-card input:checked + .option-content {
-            border-color: var(--accent);
-            background: rgba(16, 185, 129, 0.08);
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
-        }
-
-        /* Sticky Order Summary Footer */
-        .summary-bar {
-            margin-top: 30px;
-            background: rgba(15, 23, 42, 0.8);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .total-box span {
-            font-size: 0.85rem;
-            color: var(--text-sub);
-            display: block;
-        }
-
-        .total-box h3 {
-            font-size: 1.6rem;
-            color: #fff;
-            font-weight: 800;
-        }
-
-        .btn-submit {
-            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-            color: white;
-            border: none;
-            padding: 14px 32px;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 10px 20px var(--primary-glow);
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 25px var(--primary-glow);
-        }
-
-        /* Dynamic Icons Theme */
-        .icon-netflix { color: #e50914; }
-        .icon-canva { color: #00c4cc; }
-        .icon-capcut { color: #ffffff; }
-        .icon-spotify { color: #1ed760; }
-        .icon-disney { color: #113ccf; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f9d7e6">
+  <title>Ale's Glow Salon — Acne Care Learning Game</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
 
-<div class="container">
-    <div class="header">
-        <span class="badge-top"><i class="fa-solid fa-bolt"></i> ORDER CEPAT GARANSI TEPAT</span>
-        <h1>Ale Prems</h1>
-        <p>Proses Cepat 1-5 Menit • Garansi Penuh • Akses Resmi & Legal</p>
+  <header class="topbar">
+    <a class="brand" href="#" id="brandHome" aria-label="Ale's Glow Salon">
+      <span class="brand-mark">✿</span>
+      <span class="brand-copy">
+        <b>ALE'S GLOW SALON</b>
+        <small>ACNE CARE ELECTRIC TOOLS GAME, ENJOY, HAVE FUN!</small>
+      </span>
+    </a>
+
+    <div id="gameHud" class="hud hidden" aria-live="polite">
+      <span class="hud-chip">⭐ <b id="hudScore">0</b></span>
+      <span class="hud-chip">SHIFT <b id="hudCustomer">1/6</b></span>
+      <span class="hud-chip hearts" id="hudLives">♥ ♥ ♥ ♥ ♥</span>
+      <span class="hud-chip timer-chip">⏱ <b id="hudTimer">00:45</b></span>
     </div>
 
-    <form action="proses.php" method="post" id="orderForm">
-        <div class="form-card">
-            
-            <!-- 1. Data Pelanggan -->
-            <div class="section-title">
-                <i class="fa-solid fa-user-gear"></i> 1. Informasi Pemesan
-            </div>
-            <div class="input-grid">
-                <div class="form-group">
-                    <label>Nama Lengkap</label>
-                    <input type="text" name="nama" class="form-control" placeholder="Contoh: Budi Santoso" required>
-                </div>
-                <div class="form-group">
-                    <label>Nomor WhatsApp / HP</label>
-                    <input type="text" name="whatsapp" class="form-control" placeholder="Contoh: 081234567890" required>
-                </div>
-            </div>
+    <div class="sound-controls">
+      <button class="icon-button" id="soundToggle" title="Efek suara">🔊</button>
+      <button class="icon-button" id="musicToggle" title="Musik latar">🎵</button>
+      <button class="icon-button" id="voiceToggle" title="Suara karakter">🗣️</button>
+    </div>
+  </header>
 
-            <!-- 2. Pilih Aplikasi (Radio Button) -->
-            <div class="section-title">
-                <i class="fa-solid fa-layer-group"></i> 2. Pilih Aplikasi Utama 
-            </div>
-            <div class="grid-options">
-                
-                <label class="option-card">
-                    <input type="radio" name="package" value="Netflix 1 Bulan Ultra HD" data-price="45000" onclick="calculateTotal()" required>
-                    <div class="option-content">
-                        <div class="option-icon icon-netflix"><i class="fa-solid fa-tv"></i></div>
-                        <div class="option-info">
-                            <span class="option-title">Netflix Premium</span>
-                            <span class="option-desc">1 Bulan • 4K UHD</span>
-                            <span class="option-price">Rp 45.000</span>
-                        </div>
-                    </div>
-                </label>
+  <main class="app-shell">
 
-                <label class="option-card">
-                    <input type="radio" name="package" value="Canva Pro Lifetime / Invite" data-price="20000" onclick="calculateTotal()">
-                    <div class="option-content">
-                        <div class="option-icon icon-canva"><i class="fa-solid fa-palette"></i></div>
-                        <div class="option-info">
-                            <span class="option-title">Canva Pro</span>
-                            <span class="option-desc">1 Tahun • Design Team</span>
-                            <span class="option-price">Rp 20.000</span>
-                        </div>
-                    </div>
-                </label>
+    <!-- MENU UTAMA -->
+    <section id="homeScreen" class="screen active">
+      <div class="hero-card">
+        <div class="hero-copy">
+          <span class="eyebrow">YOUR FAVORITE BEAUTY CARE</span>
+          <h1>Rawat kulit pasien.<br><em>Layani pasien.</em><br>Raih bintang!</h1>
+          <p>
+            Jadilah Beauticiant di Ale's Glow Salon. Asah pengetahuanmu. Pelajari kondisi kulit berjerawat,
+            fungsi alat listrik, dan prosedur perawatan yang aman.
+          </p>
 
-                <label class="option-card">
-                    <input type="radio" name="package" value="CapCut Pro Full Cloud" data-price="25000" onclick="calculateTotal()">
-                    <div class="option-content">
-                        <div class="option-icon icon-capcut"><i class="fa-solid fa-video"></i></div>
-                        <div class="option-info">
-                            <span class="option-title">CapCut Pro</span>
-                            <span class="option-desc">1 Bulan • All PC/Mobile</span>
-                            <span class="option-price">Rp 25.000</span>
-                        </div>
-                    </div>
-                </label>
+          <div class="hero-actions">
+            <button class="btn primary big" id="startGameBtn">▶ Mulai Shift</button>
+            <button class="btn secondary big" id="openMaterialsBtn">📖 Buku Panduan</button>
+          </div>
 
-                <label class="option-card">
-                    <input type="radio" name="package" value="Spotify Premium Plan" data-price="30000" onclick="calculateTotal()">
-                    <div class="option-content">
-                        <div class="option-icon icon-spotify"><i class="fa-brands fa-spotify"></i></div>
-                        <div class="option-info">
-                            <span class="option-title">Spotify Premium</span>
-                            <span class="option-desc">1 Bulan • No Ads</span>
-                            <span class="option-price">Rp 30.000</span>
-                        </div>
-                    </div>
-                </label>
+          <div class="feature-pills">
+            <span>💗 5 nyawa</span>
+            <span>⏱ Manajemen waktu</span>
+            <span>🧠 50 soal acak</span>
+          </div>
 
-            </div>
-
-            <!-- 3. Add-ons (Checkbox Array) -->
-            <div class="section-title">
-                <i class="fa-solid fa-shield-halved"></i> 3. Fitur / Add-ons Tambahan (Checkbox)
-            </div>
-            <div class="addons-grid">
-                
-                <label class="option-card addon-card">
-                    <input type="checkbox" name="addons[]" value="Garansi Anti-Lock (Rp 5.000)" data-price="5000" onclick="calculateTotal()">
-                    <div class="option-content">
-                        <div class="option-info">
-                            <span class="option-title">Garansi Anti-Lock</span>
-                            <span class="option-desc">Replace 1x jika error</span>
-                            <span class="option-price">+ Rp 5.000</span>
-                        </div>
-                    </div>
-                </label>
-
-                <label class="option-card addon-card">
-                    <input type="checkbox" name="addons[]" value="Proses Prioritas 1 Menit (Rp 3.000)" data-price="3000" onclick="calculateTotal()">
-                    <div class="option-content">
-                        <div class="option-info">
-                            <span class="option-title">Proses Prioritas</span>
-                            <span class="option-desc">Diproses urutan pertama</span>
-                            <span class="option-price">+ Rp 3.000</span>
-                        </div>
-                    </div>
-                </label>
-
-                <label class="option-card addon-card">
-                    <input type="checkbox" name="addons[]" value="Private Lock PIN (Rp 10.000)" data-price="10000" onclick="calculateTotal()">
-                    <div class="option-content">
-                        <div class="option-info">
-                            <span class="option-title">Private PIN</span>
-                            <span class="option-desc">Profile aman ber-PIN</span>
-                            <span class="option-price">+ Rp 10.000</span>
-                        </div>
-                    </div>
-                </label>
-
-            </div>
-
-            <!-- Summary & Submit -->
-            <div class="summary-bar">
-                <div class="total-box">
-                    <span>Estimasi Total Biaya:</span>
-                    <h3 id="displayTotal">Rp 0</h3>
-                    <input type="hidden" name="total_harga" id="totalHargaInput" value="0">
-                </div>
-                <button type="submit" class="btn-submit">
-                    <i class="fa-solid fa-paper-plane"></i> Beli Sekarang
-                </button>
-            </div>
-
+          <p class="hero-microcopy">
+            Satu shift mengambil 10–15 soal acak dari bank soal.
+            Kamu tidak harus menjawab semua 50 soal.
+          </p>
         </div>
-    </form>
-</div>
 
-<script>
-    // Realtime Total Calculator via JS
-    function calculateTotal() {
-        let total = 0;
+        <div class="hero-scene">
+          <div class="scene-glow"></div>
+          <div class="floating-spark spark-a">✦</div>
+          <div class="floating-spark spark-b">✧</div>
+          <div class="salon-window"><span></span><span></span><span></span><span></span></div>
+          <div class="shelf shelf-top"><i>🧴</i><i>🫧</i><i>🧴</i><i>🌿</i></div>
+          <img class="hero-therapist bob" src="foto 1.jpeg" alt="Dokter atau terapis Glow Salon">
+          <div class="counter"></div>
+          <div class="product-pot pot-one">🧴</div>
+          <div class="product-pot pot-two">🫧</div>
+          <div class="salon-plant">🌿</div>
+          <div class="scene-caption">your glow-up starts here ✨</div>
+        </div>
+      </div>
 
-        // Ambil Radio Button terpilih
-        const selectedRadio = document.querySelector('input[name="package"]:checked');
-        if (selectedRadio) {
-            total += parseInt(selectedRadio.getAttribute('data-price')) || 0;
-        }
+      <div class="home-bottom-grid">
+        <article class="mini-feature">
+          <span>🩺</span>
+          <div><b>Konsultasi pelanggan</b><small>Analisis keluhan sebelum memilih tindakan.</small></div>
+        </article>
+        <article class="mini-feature">
+          <span>⚡</span>
+          <div><b>Stasiun alat listrik</b><small>Kenali fungsi alat dan SOP penggunaannya.</small></div>
+        </article>
+        <article class="mini-feature">
+          <span>⏰</span>
+          <div><b>Tantangan 60 detik</b><small>Jawab soal fungsi alat dan keselamatan.</small></div>
+        </article>
+      </div>
+    </section>
 
-        // Ambil Checkbox terpilih
-        const selectedCheckboxes = document.querySelectorAll('input[name="addons[]"]:checked');
-        selectedCheckboxes.forEach(cb => {
-            total += parseInt(cb.getAttribute('data-price')) || 0;
-        });
+    <!-- BUKU PANDUAN -->
+    <section id="materialsScreen" class="screen">
+      <div class="section-heading">
+        <span class="eyebrow">ALE'S GLOW SALON LEARNING GUIDE</span>
+        <h2>Buku Panduan Terapis 📖</h2>
+        <p>Perawatan kulit wajah berjerawat menggunakan alat listrik.</p>
+      </div>
 
-        // Format angka ke Rupiah
-        document.getElementById('displayTotal').innerText = 'Rp ' + total.toLocaleString('id-ID');
-        document.getElementById('totalHargaInput').value = total;
-    }
-</script>
+      <div class="panel handbook-panel">
+        <h3>📚 A. Pengertian Perawatan</h3>
+        <p>
+          Perawatan kulit wajah berjerawat menggunakan alat listrik adalah
+          rangkaian tindakan kecantikan yang memanfaatkan perangkat listrik
+          atau elektronik sesuai fungsi, petunjuk produsen, kondisi kulit,
+          dan kompetensi operator.
+        </p>
+        <p>
+          Perawatan bertujuan membantu menjaga kebersihan dan kenyamanan kulit.
+          Penggunaan alat tidak menjamin jerawat sembuh dan tidak menggantikan
+          evaluasi medis pada jerawat berat.
+        </p>
+      </div>
 
+      <div class="panel handbook-panel">
+        <h3>🎯 B. Tujuan Pembelajaran</h3>
+        <div class="ingredient-rows">
+          <p><b>01. Memahami konsep</b><span>Menjelaskan pengertian dan tujuan perawatan kulit berjerawat menggunakan alat listrik.</span></p>
+          <p><b>02. Mengenali alat</b><span>Menyebutkan nama, prinsip kerja, dan fungsi dasar perangkat wajah.</span></p>
+          <p><b>03. Menganalisis kulit</b><span>Mengenali kondisi yang memerlukan kehati-hatian atau rujukan.</span></p>
+          <p><b>04. Menerapkan SOP</b><span>Menjelaskan persiapan, pelaksanaan, pemantauan, dan penutupan perawatan.</span></p>
+          <p><b>05. Menjaga keselamatan</b><span>Mengenali kontraindikasi, higiene alat, dan respons yang tidak diharapkan.</span></p>
+        </div>
+      </div>
+
+      <div class="panel handbook-panel">
+        <h3>⚡ C. Jenis Alat Listrik dan Fungsinya</h3>
+        <p class="note">Fungsi dan cara penggunaan dapat berbeda menurut model. Selalu periksa manual perangkat.</p>
+        <div class="ingredient-rows">
+          <p><b>1. High Frequency</b><span>Menggunakan arus frekuensi tinggi. Pada perangkat tertentu, digunakan sebagai bagian protokol perawatan kulit; bukan penyembuh semua jerawat.</span></p>
+          <p><b>2. Galvanic</b><span>Menggunakan arus searah untuk proses ionisasi tertentu sesuai perangkat dan produk yang kompatibel.</span></p>
+          <p><b>3. Ultrasonic Scrubber</b><span>Menggunakan getaran ultrasonik untuk membantu membersihkan permukaan kulit secara lembut sesuai petunjuk.</span></p>
+          <p><b>4. Vacuum Suction</b><span>Menggunakan tekanan negatif untuk membantu mengangkat kotoran. Perlu kehati-hatian pada kulit sensitif atau jerawat meradang.</span></p>
+          <p><b>5. LED Light Therapy</b><span>Menggunakan cahaya dengan panjang gelombang tertentu. Efek bergantung pada perangkat, dosis, indikasi, dan protokol.</span></p>
+          <p><b>6. Microcurrent</b><span>Memberikan stimulasi listrik rendah untuk tujuan kosmetik tertentu; bukan terapi utama jerawat dan memiliki kontraindikasi.</span></p>
+          <p><b>7. Facial Steamer</b><span>Menghasilkan uap hangat untuk melembutkan permukaan kulit sementara. Perhatikan risiko panas dan iritasi.</span></p>
+          <p><b>8. Spray Ozone</b><span>Fungsi bergantung pada spesifikasi perangkat. Jangan menganggap ozon aman dihirup atau selalu efektif untuk jerawat.</span></p>
+        </div>
+      </div>
+
+      <div class="panel handbook-panel">
+        <h3>🔎 D. Analisis Kulit dan Pemilihan Alat</h3>
+        <div class="ingredient-rows">
+          <p><b>Jerawat komedo</b><span>Utamakan pembersihan lembut. Alat hanya dipertimbangkan jika sesuai kondisi kulit dan manual.</span></p>
+          <p><b>Jerawat meradang</b><span>Hindari tekanan, gesekan, dan ekstraksi agresif. Pertimbangkan rujukan sesuai tingkat keparahan.</span></p>
+          <p><b>Kulit sensitif atau iritasi</b><span>Hindari tindakan yang memperburuk iritasi. Jangan melanjutkan jika keamanan belum dipastikan.</span></p>
+          <p><b>Riwayat kesehatan tertentu</b><span>Periksa kontraindikasi, termasuk alat pacu jantung, fotosensitivitas, luka terbuka, dan kondisi lain yang disebutkan produsen.</span></p>
+        </div>
+        <p class="note">Tidak semua alat harus digunakan pada satu pelanggan. Pemilihan mengikuti indikasi, kontraindikasi, dan kompetensi operator.</p>
+      </div>
+
+      <div class="panel handbook-panel">
+        <h3>📝 E. SOP Perawatan</h3>
+        <div class="routine-strip">
+          <div><b>01</b><strong>Konsultasi</strong><small>Kaji keluhan, riwayat, dan tujuan pelanggan.</small></div>
+          <div><b>02</b><strong>Analisis</strong><small>Periksa kulit, luka, iritasi, dan kontraindikasi.</small></div>
+          <div><b>03</b><strong>Persiapan</strong><small>Jaga higiene tangan, alat, dan area kerja.</small></div>
+          <div><b>04</b><strong>Pembersihan</strong><small>Bersihkan wajah dengan metode lembut.</small></div>
+        </div>
+        <div class="ingredient-rows">
+          <p><b>05. Pemeriksaan perangkat</b><span>Periksa kabel, unit, aksesori, kebersihan, dan manual sebelum menyalakan alat.</span></p>
+          <p><b>06. Pemilihan dan pelaksanaan</b><span>Pilih alat yang sesuai, jelaskan prosedur, pastikan persetujuan, dan ikuti manual serta kompetensi operator.</span></p>
+          <p><b>07. Pemantauan</b><span>Pantau kenyamanan dan respons kulit. Hentikan tindakan jika muncul rasa terbakar, nyeri tidak wajar, atau reaksi mengkhawatirkan.</span></p>
+          <p><b>08. Penutupan</b><span>Evaluasi kulit, catat tindakan, berikan saran lanjutan, dan jelaskan kapan perlu bantuan tenaga kesehatan.</span></p>
+          <p><b>09. Sanitasi alat</b><span>Matikan perangkat sesuai manual, bersihkan dan disinfeksi bagian yang sesuai, lalu simpan dengan aman.</span></p>
+        </div>
+      </div>
+
+      <div class="panel handbook-panel">
+        <h3>🛡️ F. Keselamatan dan Hal yang Harus Dihindari</h3>
+        <div class="ingredient-rows">
+          <p><b>Alat rusak</b><span>Hentikan penggunaan jika kabel terkelupas atau unit mengalami gangguan.</span></p>
+          <p><b>Jerawat meradang</b><span>Jangan memencet atau melakukan ekstraksi agresif.</span></p>
+          <p><b>Intensitas alat</b><span>Jangan menaikkan pengaturan di luar petunjuk produsen.</span></p>
+          <p><b>Perlindungan mata</b><span>Ikuti petunjuk pelindung mata pada perangkat cahaya.</span></p>
+          <p><b>Batas kompetensi</b><span>Jerawat berat, nyeri, menetap, atau berisiko meninggalkan bekas perlu dinilai tenaga kesehatan.</span></p>
+        </div>
+      </div>
+
+      <div class="panel handbook-panel">
+        <h3>✅ G. Evaluasi Pembelajaran</h3>
+        <ul>
+          <li>Apa fungsi High Frequency, Galvanic, Ultrasonic Scrubber, dan LED Light Therapy?</li>
+          <li>Mengapa kondisi kulit dan kontraindikasi perlu diperiksa sebelum memilih alat?</li>
+          <li>Apa yang dilakukan jika pelanggan merasa terbakar saat perawatan?</li>
+          <li>Mengapa kebersihan dan pemeriksaan perangkat merupakan bagian dari SOP?</li>
+          <li>Kapan pelanggan perlu disarankan berkonsultasi dengan tenaga kesehatan?</li>
+        </ul>
+        <p class="note">Panduan ini bersifat edukatif. Praktik harus mengikuti pelatihan, manual perangkat, standar higiene, dan ketentuan yang berlaku.</p>
+      </div>
+
+      <div class="screen-actions">
+        <button class="btn primary" id="startFromMaterials">Aku siap, mulai shift →</button>
+        <button class="btn secondary" data-go="homeScreen">Kembali ke menu</button>
+      </div>
+    </section>
+
+    <!-- PERMAINAN -->
+    <section id="gameScreen" class="screen">
+      <div class="shift-heading panel">
+        <div>
+          <span class="eyebrow" id="phaseEyebrow">KONSULTASI PELANGGAN</span>
+          <h2 id="shiftHeading">Pelanggan baru datang!</h2>
+          <p id="shiftSubheading">Dengarkan keluhan sebelum memilih tindakan.</p>
+        </div>
+        <div class="timer-area">
+          <div class="timer-large" id="timerLarge">01:00</div>
+          <div class="timer-track"><span id="timerBar"></span></div>
+          <small>Waktu untuk pelanggan ini</small>
+        </div>
+      </div>
+
+      <div class="game-layout">
+        <aside class="client-card panel">
+          <div class="client-scene">
+            <div class="client-spark">✦</div>
+            <img id="clientAvatar" src="foto 2.jpeg" alt="Ilustrasi pelanggan" class="client-avatar bob">
+            <div class="client-bubble" id="clientBubble">Halo! Aku ingin konsultasi kulit.</div>
+          </div>
+          <div class="client-meta">
+            <span class="tag" id="clientNumber">PELANGGAN 01</span>
+            <span class="tag soft-tag" id="clientMood">MENUNGGU</span>
+          </div>
+          <h3 id="clientName">Kylie, 22 tahun</h3>
+          <p class="client-complaint" id="clientComplaint">Kulit terasa tertarik setelah mencuci muka.</p>
+          <div class="symptom-box">
+            <b>📝 Catatan keluhan</b>
+            <ul id="clientSymptoms"></ul>
+          </div>
+          <div class="service-steps" id="serviceSteps"></div>
+        </aside>
+
+        <section class="workstation panel">
+          <div class="station-tabs">
+            <span class="station-tab current" id="tabConsult">01 Konsultasi</span>
+            <span class="station-tab" id="tabCare">02 Perawatan</span>
+          </div>
+
+          <div id="diagnosisPanel">
+            <span class="step-kicker">STASIUN KONSULTASI</span>
+            <h3>Menurutmu, kondisi kulit apa yang paling sesuai?</h3>
+            <p class="muted">Baca keluhan dan pilih penilaian kerja terbaik. Gejala tidak memastikan diagnosis medis.</p>
+            <div id="diagnosisOptions" class="choice-grid"></div>
+          </div>
+
+          <div id="carePanel" class="hidden">
+            <span class="step-kicker">STASIUN PERAWATAN</span>
+            <h3 id="careTitle">Pilih langkah berikutnya</h3>
+            <p class="muted" id="careInstructions">Ikuti urutan yang sesuai kondisi pelanggan.</p>
+            <div id="routineTimeline" class="routine-timeline"></div>
+            <div class="workbench-label">MEJA PRODUK · PILIH ITEM</div>
+            <div id="productGrid" class="product-grid"></div>
+          </div>
+
+          <div id="gameFeedback" class="feedback hidden" role="status"></div>
+
+          <div class="workstation-footer">
+            <span>⭐ Skor <b id="gameScore">0</b></span>
+            <span>✅ Dilayani <b id="gameServed">0</b></span>
+            <button id="pauseBtn" class="btn tiny secondary">Ⅱ Jeda</button>
+          </div>
+        </section>
+      </div>
+
+      <div class="bottom-tools">
+        <article class="tool-card panel">
+          <div class="tool-heading"><span>🧪</span><div><h3>Fungsi Alat</h3><small>Cocokkan alat listrik dengan fungsinya.</small></div></div>
+          <p id="ingredientPrompt">Alat yang menggunakan getaran ultrasonik?</p>
+          <div id="ingredientChoices" class="match-options"></div>
+          <div id="ingredientFeedback" class="mini-feedback"></div>
+        </article>
+
+        <article class="tool-card panel">
+          <div class="tool-heading"><span>🛡️</span><div><h3>Safety Challenge</h3><small>Uji pemahaman keselamatan.</small></div></div>
+          <p>Apakah semua alat listrik cocok untuk semua jenis jerawat?</p>
+          <div class="inline-actions">
+            <button class="btn small secondary" data-water="true">Ya, semua alat</button>
+            <button class="btn small secondary" data-water="false">Tidak selalu</button>
+          </div>
+          <div id="waterFeedback" class="mini-feedback"></div>
+        </article>
+
+        <article class="tool-card panel">
+          <div class="tool-heading"><span>⚡</span><div><h3>Checklist Alat</h3><small>Mini-game pemeriksaan keselamatan.</small></div></div>
+          <p>Tekan tujuh kali untuk menyelesaikan checklist keselamatan.</p>
+          <div class="tap-game">
+            <div class="tap-counter" id="skinTapCount">0<span>/7 cek</span></div>
+            <button class="btn primary" id="skinTapBtn">⚡ Cek alat</button>
+          </div>
+          <div id="skinTapFeedback" class="mini-feedback"></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SOAL REMEDIAL -->
+    <section id="punishmentScreen" class="screen punishment-screen">
+      <div class="punishment-banner">
+        <div class="alarm-icon" id="punishmentIcon">⏰</div>
+        <div>
+          <span class="eyebrow">TIME-OUT CHALLENGE</span>
+          <h2 id="punishmentTitle">Waktu habis!</h2>
+          <p id="punishmentSubtitle">Selesaikan tantangan untuk kembali ke salon.</p>
+        </div>
+      </div>
+
+      <div class="penalty-progress">
+        <span>♥ Nyawa tersisa: <b id="penaltyLives">5</b></span>
+        <span>📚 Tantangan <b id="penaltyCount">1</b>/<b id="penaltyMax">12</b></span>
+      </div>
+
+      <div class="panel quiz-card">
+        <div class="quiz-topline">
+          <span class="tag" id="questionType">STUDI KASUS</span>
+          <span class="tag soft-tag" id="questionDifficulty">MENENGAH</span>
+        </div>
+
+        <div class="question-clock" aria-live="polite">
+          <div class="question-clock-row">
+            <span>⏱ Waktu menjawab</span>
+            <strong id="questionTimer">01:00</strong>
+          </div>
+          <div class="question-clock-track"><span id="questionTimerBar"></span></div>
+        </div>
+
+        <h3 id="questionTitle">Pertanyaan tantangan</h3>
+        <p id="questionScenario" class="question-scenario"></p>
+        <div id="questionAnswerArea"></div>
+        <div id="questionFeedback" class="answer-explanation hidden" role="status"></div>
+
+        <div class="quiz-footer">
+          <span class="muted" id="questionFooterNote">Baca soal dengan teliti.</span>
+          <button id="questionContinue" class="btn primary hidden">Lanjutkan →</button>
+        </div>
+      </div>
+
+      <p class="quiz-rule">Soal yang sudah muncul tidak diulang dalam satu shift.</p>
+    </section>
+
+    <!-- JEDA -->
+    <section id="pauseScreen" class="screen pause-screen">
+      <div class="panel pause-card">
+        <div class="pause-character">☕</div>
+        <span class="eyebrow">TAKE A BREATH</span>
+        <h2>Shift dijeda sebentar</h2>
+        <p>Timer berhenti sampai kamu siap kembali.</p>
+        <button class="btn primary" id="resumeBtn">Lanjut bekerja</button>
+        <button class="btn secondary" id="quitBtn">Akhiri shift</button>
+      </div>
+    </section>
+
+    <!-- HASIL -->
+    <section id="resultScreen" class="screen">
+      <div class="panel result-card">
+        <div class="result-confetti">✦ ✧ ✦</div>
+        <div class="result-mascot">🎀</div>
+        <span class="eyebrow">SHIFT REPORT</span>
+        <h1 id="resultTitle">Shift selesai!</h1>
+        <p id="resultMessage">Kerja bagus, terapis!</p>
+
+        <div class="result-stats">
+          <div><b id="resultScore">0</b><span>Skor akhir</span></div>
+          <div><b id="resultServed">0</b><span>Pelanggan dilayani</span></div>
+          <div><b id="resultLives">0/5</b><span>Sisa nyawa</span></div>
+          <div><b id="resultQs">0</b><span>Soal dijawab</span></div>
+        </div>
+
+        <div class="result-note">
+          <b>💡 Ingat</b>
+          <p>Pemilihan alat harus sesuai kondisi kulit, indikasi, manual perangkat, dan SOP. Game ini bersifat edukatif.</p>
+        </div>
+
+        <div class="result-actions">
+          <button class="btn primary" id="replayBtn">↻ Shift berikutnya</button>
+          <button class="btn secondary" data-go="materialsScreen">Baca materi</button>
+          <button class="btn secondary" data-go="homeScreen">Menu utama</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
